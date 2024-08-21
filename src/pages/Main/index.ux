@@ -1,0 +1,93 @@
+<template>
+  <div class="wrapper">
+    <text class="title">{{ title }}</text>
+    <list>
+      <list-item type="review" for="{{item in list}}">
+        <text>{{ item.name }}</text>
+      </list-item>
+      <list-item type="review" onclick="{{goDetail(title)}}">
+        <text>这是跳转按钮</text>
+      </list-item>
+      <list-item type="loadMore">
+        <progress type="circular"></progress>
+        <text>加载更多</text>
+      </list-item>
+    </list>
+  </div>
+</template>
+
+<script>
+import router from '@system.router'
+export default {
+  goDetail(title) {
+    router.push({
+      uri: 'pages/Detail',
+      params: { title }
+    })
+  },
+  private: {
+    title: '欢迎体验快应用开发',
+    list: [
+      {
+        name: '这是list组件',
+        icon: ''
+      },
+      {
+        name: '这是list组件',
+        icon: ''
+      },
+      {
+        name: '这是list组件',
+        icon: ''
+      },
+      {
+        name: '这是list组件',
+        icon: ''
+      },
+      {
+        name: '这是list组件',
+        icon: ''
+      },
+      {
+        name: '这是list组件',
+        icon: ''
+      },
+      {
+        name: '这是list组件',
+        icon: ''
+      },
+      {
+        name: '这是list组件',
+        icon: ''
+      },
+      {
+        name: '这是list组件',
+        icon: ''
+      },
+    ]
+  },
+
+  onInit() { },
+
+  async onReady() {
+    console.log(router.getState(), router.getPages())
+
+    const ret1 = await $myFetch.myFetch.fetch({
+      url: 'https://statres.quickapp.cn/quickapp/quickapptool/release/platform/quickapp_platform.json'
+    })
+    console.info('fetch成功结果: ', JSON.stringify(ret1))
+  },
+}
+</script>
+
+<style>
+.wrapper {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.title {
+  text-align: center;
+  color: #212121;
+}
+</style>

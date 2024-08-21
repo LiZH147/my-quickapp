@@ -1,0 +1,30 @@
+<template>
+  <div class="wrapper">
+    <text class="title">{{ title }}</text>
+    <web src="https://doc.quickapp.cn/widgets/web.html?h=web" id="web"></web>
+  </div>
+</template>
+
+<script>
+export default {
+  protected: {
+    title: ''
+  },
+
+  onInit() {
+    console.log("-----------", this.title)
+  }
+}
+</script>
+
+<style>
+.wrapper {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.title {
+  text-align: center;
+  color: #212121;
+}
+</style>
