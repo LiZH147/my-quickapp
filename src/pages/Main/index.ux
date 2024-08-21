@@ -1,27 +1,40 @@
 <template>
   <div class="wrapper">
-    <text class="title">{{ title }}</text>
-    <list>
-      <list-item type="review" for="{{item in list}}">
-        <text>{{ item.name }}</text>
-      </list-item>
-      <list-item type="review" onclick="{{goDetail(title)}}">
-        <text>这是跳转按钮</text>
-      </list-item>
-      <list-item type="loadMore">
-        <progress type="circular"></progress>
-        <text>加载更多</text>
-      </list-item>
-    </list>
+    <refresh class="refresh" refreshing="{{isRefershing}}" onrefresh="refresh">
+      <text class="title">{{ title }}</text>
+      <list>
+        <list-item type="review" for="{{item in list}}">
+          <text>{{ item.name }}</text>
+        </list-item>
+        <list-item type="review" onclick="{{goDetail('Detail')}}">
+          <text>这是跳转按钮</text>
+        </list-item>
+        <list-item type="review" onclick="{{goDetail('PopupTest')}}">
+          <text>popup测试</text>
+        </list-item>
+        <list-item type="loadMore">
+          <progress type="circular"></progress>
+          <text>加载更多</text>
+        </list-item>
+      </list>
+      <div id="popup1">
+        <text>popup测试</text>
+      </div>
+      <popup target="popup1" placement="bottom">
+        <text>popup测试</text>
+      </popup>
+    </refresh>
   </div>
 </template>
 
 <script>
 import router from '@system.router'
+import prompt from '@system.prompt'
+
 export default {
   goDetail(title) {
     router.push({
-      uri: 'pages/Detail',
+      uri: 'pages/' + title,
       params: { title }
     })
   },
@@ -64,7 +77,18 @@ export default {
         name: '这是list组件',
         icon: ''
       },
-    ]
+    ],
+    isRefershing: false
+  },
+  refresh(evt) {
+    const self = this;
+    self.isRefershing = evt.refresh;
+    setTimeout(() => {
+      self.isRefershing = false;
+      prompt.showToast({
+        message: '刷新完成'
+      })
+    }, 300)
   },
 
   onInit() { },
@@ -72,15 +96,19 @@ export default {
   async onReady() {
     console.log(router.getState(), router.getPages())
 
-    const ret1 = await $myFetch.myFetch.fetch({
-      url: 'https://statres.quickapp.cn/quickapp/quickapptool/release/platform/quickapp_platform.json'
-    })
-    console.info('fetch成功结果: ', JSON.stringify(ret1))
+    // const ret1 = await $myFetch.myFetch.fetch({
+    // url: 'https://statres.quickapp.cn/quickapp/quickapptool/release/platform/quickapp_platform.json'
+    // })
+    // console.info('fetch成功结果: ', JSON.stringify(ret1))
   },
 }
 </script>
 
 <style>
+.refresh {
+  flex-direction: column;
+  flex: 1;
+}
 .wrapper {
   flex-direction: column;
   justify-content: center;

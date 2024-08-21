@@ -36,6 +36,9 @@
       },
       "pages/Detail": {
         "component": "index"
+      },
+      "pages/PopupTest": {
+        "component": "index"
       }
     },
     "widgets": {
@@ -63,6 +66,9 @@
         "titleBarText": "详情页"
       },
       "pages/Detail": {
+        "titleBarText": ""
+      },
+      "pages/PopupTest": {
         "titleBarText": ""
       }
     }
